@@ -1,4 +1,4 @@
-package com.project;
+package com.project.worker2d;
 
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
@@ -20,6 +20,19 @@ public class Image {
         this.width = width;
         this.height = height;
         this.path = path;
+    }
+
+    public void colorToBlack() {
+        if(matrix == null){
+            matrix = new Pixel[height][width];
+        }
+        for (int i = 0; i < matrix.length; i++) {
+            var row = new Pixel[width];
+            for (int j = 0; j < row.length; j++) {
+                row[j] = new Pixel();
+            }
+            matrix[i] = row;
+        }
     }
 
     public void save() {

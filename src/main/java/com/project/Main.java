@@ -1,5 +1,9 @@
 package com.project;
 
+import com.project.worker2d.Image;
+import com.project.worker2d.ImageCreate;
+import com.project.worker3d.ObjParser;
+
 import java.util.Scanner;
 
 public class Main {
@@ -11,7 +15,10 @@ public class Main {
         System.out.print("W: ");
         final var W = 200; // scanner.nextInt();
         var image = new Image(W, H, "result.jpg");
+        image.colorToBlack();
         ImageCreate imageCreate = new ImageCreate(image);
-        imageCreate.createStar();
+        ObjParser parser = new ObjParser();
+        parser.parseFile("pyramid.obj");
+        imageCreate.create3dPoints(parser.getPoints());
     }
 }

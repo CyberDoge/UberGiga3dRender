@@ -1,4 +1,4 @@
-package com.project;
+package com.project.worker2d;
 
 // oooo theris my mind
 public class Pixel {
@@ -22,5 +22,13 @@ public class Pixel {
         this.r = r;
         this.g = g;
         this.b = b;
+    }
+
+    public static Pixel red() {
+        return new Pixel(255, 0, 0);
+    }
+    public Pixel white() {
+        return new Pixel(255, 255, 255);
+
     }
 }
