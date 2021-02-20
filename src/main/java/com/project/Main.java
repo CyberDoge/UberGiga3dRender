@@ -11,14 +11,14 @@ public class Main {
         System.out.println("hello");
         var scanner = new Scanner(System.in);
         System.out.print("H: ");
-        final var H = 200; // scanner.nextInt();
+        final var H = 300; // scanner.nextInt();
         System.out.print("W: ");
-        final var W = 200; // scanner.nextInt();
+        final var W = 300; // scanner.nextInt();
         var image = new Image(W, H, "result.jpg");
         image.colorToBlack();
         ImageCreate imageCreate = new ImageCreate(image);
         ObjParser parser = new ObjParser();
-        parser.parseFile("pyramid.obj");
+        parser.parseFile("test.obj");
         imageCreate.create3dPoints(parser.getPoints());
     }
 }

@@ -18,9 +18,9 @@ public class ObjParser {
         try {
             List<String> lines = Files.readAllLines(Path.of(file)).stream()
                     .filter(line -> !line.startsWith("#")).collect(Collectors.toList());
-            this.points = lines.stream().filter(line -> line.startsWith("v")).map(line -> {
+            this.points = lines.stream().filter(line -> line.startsWith("v ")).map(line -> {
                 String[] data = line.split("\\s+");
-                return new Point3d(Float.parseFloat(data[1]), Float.parseFloat(data[2]), Float.parseFloat(data[3]));
+                return new Point3d(Double.parseDouble(data[1]), Double.parseDouble(data[2]), Double.parseDouble(data[3]));
             }).collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
