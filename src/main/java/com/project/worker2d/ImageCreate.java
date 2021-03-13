@@ -24,22 +24,21 @@ public class ImageCreate {
         points.forEach(point ->
                 image.matrix[((int) ((point.y - minY) * k))][(int) ((point.x - minX) * k)] = Pixel.red()
         );
-        image.save();
     }
 
-    public void createRectangle(Point3d point1, Point3d point2, Point3d point3) {
+    public void createRectangle(Point3d point1, Point3d point2, Point3d point3, Pixel pixel) {
+        double maxX = MathFunctions.max(point1.x, point2.x, point3.x);
+        double minX = MathFunctions.min(point1.x, point2.x, point3.x);
+        double maxY = MathFunctions.max(point1.y, point2.y, point3.y);
+        double minY = MathFunctions.min(point1.y, point2.y, point3.y);
         var matrix = this.image.matrix;
-        for (int x = 0; x < matrix.length; x++) {
-            var row = matrix[x];
-            for (int y = 0; y < row.length; y++) {
+        for (int x = (int) minX; x < maxX; x++) {
+            for (int y = (int)minY; y < maxY; y++) {
                 var cord = MathFunctions.countBarycentricCoordinate(new Point3d(x, y, 0), point1, point2, point3);
                 if (cord.isGreaterThen0()) {
-                    matrix[x][y] = Pixel.red();
+                    matrix[x][y] = pixel;
                 }
             }
-
         }
-        image.save();
-
     }
 }

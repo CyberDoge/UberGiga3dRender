@@ -10,6 +10,6 @@ public class BarycentricCoordinate {
     }
 
     public boolean isGreaterThen0() {
-        return this.lambda > 0 && this.lambda1 > 0 && this.lambda2 > 0;
+        return this.lambda >= 0 && this.lambda1 >= 0 && this.lambda2 >= 0;
     }
 }

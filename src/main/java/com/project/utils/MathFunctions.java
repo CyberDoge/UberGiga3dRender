@@ -32,6 +32,21 @@ public class MathFunctions {
     }
 
     public static double max(double... points) {
-        return Arrays.stream(points).min().orElse(0);
+        return Arrays.stream(points).max().orElse(0);
+    }
+
+    public static double scalarMul1(Point3d point0, Point3d point1, Point3d point2) {
+        return (point1.x - point0.x) * (point1.x - point2.x) + (point1.y - point0.y) * (point1.y - point2.y)
+                + (point1.z - point0.z) * (point1.z - point2.z) + (point1.z - point0.z) * (point1.z - point2.z);
+    }
+
+    public static Point3d scalarMul(Point3d point0, Point3d point1, Point3d point2) {
+        return new Point3d((point1.x - point0.x) * (point1.x - point2.x), (point1.y - point0.y) * (point1.y - point2.y),
+                (point1.z - point0.z) * (point1.z - point2.z) + (point1.z - point0.z) * (point1.z - point2.z));
+    }
+
+    public static double cos(Point3d n, Point3d l) {
+        return (n.x * l.x + n.y * l.y + n.z * l.z) /
+                (Math.sqrt(n.x * n.x + n.y * n.y + n.z * n.z) * Math.sqrt(l.x * l.x + l.y * l.y + l.z * l.z));
     }
 }
