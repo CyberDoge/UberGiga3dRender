@@ -46,7 +46,7 @@ public class Image {
                 }
             }
             File output = new File(this.path);
-            ImageIO.write(image, "jpg", output);
+            ImageIO.write(image, "png", output);
         } catch (Exception e) {
             e.printStackTrace();
         }
