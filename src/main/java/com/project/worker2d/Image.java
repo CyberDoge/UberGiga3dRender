@@ -1,25 +1,23 @@
 package com.project.worker2d;
 
-import static java.awt.image.BufferedImage.TYPE_INT_RGB;
-
-import java.awt.Color;
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-import javax.imageio.ImageIO;
+import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class Image {
-    public int width, height = 255;
+    public int width, height;
     public String path;
-    public Image() {
-        path = "result.jpg";
-    }
+
     public Pixel[][] matrix;
 
     public Image(int width, int height, String path) {
         this.width = width;
         this.height = height;
         this.path = path;
+        this.colorToBlack();
     }
 
     public void colorToBlack() {

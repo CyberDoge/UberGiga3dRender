@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -11,6 +12,10 @@ import java.util.stream.Stream;
 public class ObjParser {
     private List<Point3d> points;
     private List<int[]> faces;
+
+    public ObjParser(String file) {
+        this.parseFile(file);
+    }
 
     public List<Point3d> getPoints() {
         return points == null ? new ArrayList<>() : this.points;
@@ -39,5 +44,16 @@ public class ObjParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void scalePoints() {
+        double minX = this.points.stream().min(Comparator.comparing((point) -> point.x)).get().x;
+        double minY = this.points.stream().min(Comparator.comparing((point) -> point.y)).get().y;
+        int k = 2500;
+        this.points.forEach(point -> {
+                    point.y = (point.y - minY) * k;
+                    point.x = (point.x - minX) * k;
+                }
+        );
     }
 }
