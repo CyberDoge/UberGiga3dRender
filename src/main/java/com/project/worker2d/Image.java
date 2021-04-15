@@ -21,7 +21,7 @@ public class Image {
     }
 
     public void colorToBlack() {
-        if(matrix == null){
+        if (matrix == null) {
             matrix = new Pixel[height][width];
         }
         for (int i = 0; i < matrix.length; i++) {
@@ -36,11 +36,11 @@ public class Image {
     public void save() {
         try {
             BufferedImage image = new BufferedImage(width, height, TYPE_INT_RGB);
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) {
-                    Pixel pixel = matrix[i][j];
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    Pixel pixel = matrix[x][y];
                     Color newColor = new Color(pixel.r, pixel.g, pixel.b);
-                    image.setRGB(i, j, newColor.getRGB());
+                    image.setRGB(x, height - 1 - y, newColor.getRGB());
                 }
             }
             File output = new File(this.path);

@@ -1,7 +1,8 @@
 package com.project;
 
+import com.project.store.Store;
+import com.project.worker2d.Drawer;
 import com.project.worker2d.Image;
-import com.project.worker2d.ImageCreate;
 import com.project.worker3d.ObjParser;
 import com.project.worker3d.Renderer3d;
 
@@ -11,12 +12,14 @@ public class Main {
     public static void main(String[] args) {
         var scanner = new Scanner(System.in);
         System.out.print("H: ");
-        final var H = 300; // scanner.nextInt();
+        final var H = 5300; // scanner.nextInt();
         System.out.print("W: ");
-        final var W = 300; // scanner.nextInt();
-        var image = new Image(W, H, "crol.png");
-        Renderer3d renderer3d = new Renderer3d(new ImageCreate(image), new ObjParser("crol.obj"));
-        renderer3d.drawPolygon();
+        final var W = 5300; // scanner.nextInt();
+        Store store = new Store();
+        String name = "fox";
+        var image = new Image(W, H, name + ".png");
+        Renderer3d renderer3d = new Renderer3d(store, new Drawer(image), new ObjParser(store, name + ".obj"));
+        renderer3d.draw();
         image.save();
     }
 }
