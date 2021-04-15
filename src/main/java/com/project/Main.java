@@ -16,9 +16,10 @@ public class Main {
         System.out.print("W: ");
         final var W = 5300; // scanner.nextInt();
         Store store = new Store();
-        String name = "fox";
-        var image = new Image(W, H, name + ".png");
-        Renderer3d renderer3d = new Renderer3d(store, new Drawer(image), new ObjParser(store, name + ".obj"));
+        String name = "crol";
+        var image = new Image(W, H, name + "1.png");
+        ObjParser objParser = new ObjParser(store, name + ".obj");
+        Renderer3d renderer3d = new Renderer3d(store, new Drawer(image));
         renderer3d.draw();
         image.save();
     }

@@ -30,7 +30,6 @@ public class Drawer {
     }
 
     public void drawLines(List<Point3d> points, List<int[]> faces) {
-        int i = 0;
         for (int[] face : faces) {
             Thread first = new Thread(() -> {
                 line(points.get(face[0]).x, points.get(face[0]).y, points.get(face[1]).x, points.get(face[1]).y, image.matrix, Pixel.red());
@@ -55,6 +54,9 @@ public class Drawer {
                     double z = cord.lambda * point1.z
                             + cord.lambda1 * point2.z
                             + cord.lambda2 * point3.z;
+                    if(this.zBuffer.getMatrix().length <= x || this.zBuffer.getMatrix()[x].length <= y){
+                        continue;
+                    }
                     if (z <= this.zBuffer.getMatrix()[x][y]) {
                         matrix[x][y] = pixel;
                         this.zBuffer.getMatrix()[x][y] = z;

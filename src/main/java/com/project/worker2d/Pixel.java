@@ -19,7 +19,7 @@ public class Pixel {
     }
 
     public Pixel(int r, int g, int b) {
-        this.r = r;
+        this.r = Math.abs(r);
         this.g = g;
         this.b = b;
     }
