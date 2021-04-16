@@ -20,6 +20,10 @@ public class Pixel {
 
     public Pixel(int r, int g, int b) {
         this.r = Math.abs(r);
+        if (this.r > 255) {
+            this.r = this.r % 255;
+        }
+        System.out.println(this.r);
         this.g = g;
         this.b = b;
     }
@@ -27,6 +31,7 @@ public class Pixel {
     public static Pixel red() {
         return new Pixel(255, 0, 0);
     }
+
     public Pixel white() {
         return new Pixel(255, 255, 255);
 

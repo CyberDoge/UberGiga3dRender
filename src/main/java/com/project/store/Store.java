@@ -1,5 +1,6 @@
 package com.project.store;
 
+import com.project.worker2d.Image;
 import com.project.worker3d.Point3d;
 
 import java.util.ArrayList;
@@ -9,6 +10,15 @@ public class Store {
 
     private List<Point3d> points;
     private List<int[]> faces;
+    private Image image;
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
 
     public List<Point3d> getPoints() {
         return points == null ? new ArrayList<>() : this.points;

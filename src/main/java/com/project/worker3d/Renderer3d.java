@@ -37,7 +37,7 @@ public class Renderer3d {
         });
 
         SimpleMatrix R = matrix1.mult(matrix2).mult(matrix3);
-        SimpleMatrix t = new SimpleMatrix(new double[][]{{-1000}, {1000}, {0}});
+        SimpleMatrix t = new SimpleMatrix(new double[][]{{0}, {0}, {0}});
         for (Point3d point : this.store.getPoints()) {
             var vector = new SimpleMatrix(new double[][]{
                     {point.x}, {point.y}, {point.z}
@@ -49,14 +49,11 @@ public class Renderer3d {
 
     private void drawPolygons() {
         for (int[] face : this.store.getFaces()) {
-            new Thread(() -> {
-
-                this.drawer.drawRectangle(
-                        this.store.getPoints().get(face[0]),
-                        this.store.getPoints().get(face[1]),
-                        this.store.getPoints().get(face[2])
-                );
-            }).start();
+            this.drawer.drawRectangle(
+                    this.store.getPoints().get(face[0]),
+                    this.store.getPoints().get(face[1]),
+                    this.store.getPoints().get(face[2])
+            );
         }
     }
 }

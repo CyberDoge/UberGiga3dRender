@@ -17,9 +17,10 @@ public class Main {
         final var W = 5300; // scanner.nextInt();
         Store store = new Store();
         String name = "crol";
-        var image = new Image(W, H, name + "1.png");
+        var image = new Image(W, H, name + ".png");
+        store.setImage(image);
         ObjParser objParser = new ObjParser(store, name + ".obj");
-        Renderer3d renderer3d = new Renderer3d(store, new Drawer(image));
+        Renderer3d renderer3d = new Renderer3d(store, new Drawer(store));
         renderer3d.draw();
         image.save();
     }

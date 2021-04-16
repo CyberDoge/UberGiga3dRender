@@ -53,13 +53,12 @@ public class ObjParser {
     }
     private void scalePoints(List<Point3d> points) {
         double minX = points.stream().min(Comparator.comparing((point) -> point.x)).get().x;
+        double maxX = points.stream().max(Comparator.comparing((point) -> point.x)).get().x;
         double minY = points.stream().min(Comparator.comparing((point) -> point.y)).get().y;
-        int k = 60000;
+        long k = ((long) (store.getImage().width / (maxX - minX))) / 2;
         points.forEach(point -> {
                     point.y = (point.y - minY) * k;
                     point.x = (point.x - minX) * k;
-//                    point.x = point.x  * 4000 + 500;
-//                    point.y = point.x  * 4000 + 500;
                 }
         );
     }
