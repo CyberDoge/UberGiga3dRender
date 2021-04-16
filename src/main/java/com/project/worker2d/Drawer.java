@@ -41,26 +41,32 @@ public class Drawer {
         image.save();
     }
 
-    public void drawRectangle(Point3d point1, Point3d point2, Point3d point3, Pixel pixel) {
+    public void drawRectangle(Point3d point1, Point3d point2, Point3d point3) {
         double maxX = MathFunctions.max(point1.x, point2.x, point3.x);
         double minX = MathFunctions.min(point1.x, point2.x, point3.x);
         double maxY = MathFunctions.max(point1.y, point2.y, point3.y);
         double minY = MathFunctions.min(point1.y, point2.y, point3.y);
         var matrix = this.image.matrix;
+
         for (int x = (int) minX; x < maxX; x++) {
             for (int y = (int) minY; y < maxY; y++) {
+                if (this.zBuffer.getMatrix().length <= x || this.zBuffer.getMatrix()[x].length <= y) {
+                    continue;
+                }
                 var cord = MathFunctions.countBarycentricCoordinate(new Point3d(x, y, 0), point1, point2, point3);
-                if (cord.isGreaterThen0()) {
-                    double z = cord.lambda * point1.z
-                            + cord.lambda1 * point2.z
-                            + cord.lambda2 * point3.z;
-                    if(this.zBuffer.getMatrix().length <= x || this.zBuffer.getMatrix()[x].length <= y){
-                        continue;
-                    }
-                    if (z <= this.zBuffer.getMatrix()[x][y]) {
-                        matrix[x][y] = pixel;
-                        this.zBuffer.getMatrix()[x][y] = z;
-                    }
+                if (!cord.isGreaterThen0()) {
+                    return;
+                }
+                double z = cord.lambda * point1.z
+                        + cord.lambda1 * point2.z
+                        + cord.lambda2 * point3.z;
+                if (z <= this.zBuffer.getMatrix()[x][y]) {
+                    double cos1 = MathFunctions.cos(point1, new Point3d());
+                    double cos2 = MathFunctions.cos(point2, new Point3d());
+                    double cos3 = MathFunctions.cos(point3, new Point3d());
+                    matrix[x][y] = new Pixel(((int) (6550000 * (cord.lambda * cos1 + cord.lambda1 * cos2 + cord.lambda2 * cos3))), 0, 0);
+                    this.zBuffer.getMatrix()[x][y] = z;
+
                 }
             }
         }

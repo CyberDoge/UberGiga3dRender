@@ -1,9 +1,7 @@
 package com.project.worker3d;
 
 import com.project.store.Store;
-import com.project.utils.MathFunctions;
 import com.project.worker2d.Drawer;
-import com.project.worker2d.Pixel;
 import org.ejml.simple.SimpleMatrix;
 
 public class Renderer3d {
@@ -21,7 +19,7 @@ public class Renderer3d {
     }
 
     public void rotateModel() {
-        double alpha = 0, betta = 1, gamma = 0;
+        double alpha = 0, betta = 0, gamma = 0;
         SimpleMatrix matrix1 = new SimpleMatrix(new double[][]{
                 {1, 0, 0},
                 {0, Math.cos(alpha), Math.sin(alpha)},
@@ -39,7 +37,7 @@ public class Renderer3d {
         });
 
         SimpleMatrix R = matrix1.mult(matrix2).mult(matrix3);
-        SimpleMatrix t = new SimpleMatrix(new double[][]{{1000}, {0}, {0}});
+        SimpleMatrix t = new SimpleMatrix(new double[][]{{-1000}, {1000}, {0}});
         for (Point3d point : this.store.getPoints()) {
             var vector = new SimpleMatrix(new double[][]{
                     {point.x}, {point.y}, {point.z}
@@ -51,16 +49,14 @@ public class Renderer3d {
 
     private void drawPolygons() {
         for (int[] face : this.store.getFaces()) {
-            double cos = MathFunctions.cos(this.store.getPoints().get(face[0]), new Point3d(0, 0, 1));
-            if (cos < 0) {
+            new Thread(() -> {
+
                 this.drawer.drawRectangle(
                         this.store.getPoints().get(face[0]),
                         this.store.getPoints().get(face[1]),
-                        this.store.getPoints().get(face[2]),
-                        new Pixel((int) (255 * cos), 0, 0)
-//                        new Pixel(((int) (Math.random() * 255)), ((int) (Math.random() * 255)), ((int) (Math.random() * 255)))
+                        this.store.getPoints().get(face[2])
                 );
-            }
+            }).start();
         }
     }
 }
